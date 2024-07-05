@@ -7,7 +7,7 @@ const lines: Array[String] = [
 	"Hello, who are you?",
 	"I don't like you!",
 	"Fuck you.",
-	"Get away!!",
+	"Get away!"
 ]
 
 func _ready():

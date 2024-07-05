@@ -19,7 +19,6 @@ func start_dialog(position: Vector2, lines: Array[String]):
 	
 	dialog_lines = lines
 	text_box_position = position
-	current_line_index = 0
 	_show_text_box()
 	
 	is_dialog_active = true
@@ -31,10 +30,10 @@ func _show_text_box():
 	text_box.global_position = text_box_position
 	text_box.display_text(dialog_lines[current_line_index])
 	can_advance_line = false
-	# Asegúrate de que no hay un text_box previo
 
 func _on_text_box_finished_displaying():
 	can_advance_line = true
+
 
 func _unhandled_input(event):
 	if (
@@ -49,5 +48,6 @@ func _unhandled_input(event):
 			is_dialog_active = false
 			current_line_index = 0
 			dialog_finished.emit()
-		else:
-			_show_text_box()
+			return
+			
+		_show_text_box()

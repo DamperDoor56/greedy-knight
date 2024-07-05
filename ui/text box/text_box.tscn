@@ -24,19 +24,21 @@ patch_margin_bottom = 16
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
 
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_myoeg")
 theme_override_font_sizes/font_size = 8
-text = "Hello :3
-how are you"
 horizontal_alignment = 1
 vertical_alignment = 1
+justification_flags = 0
 
 [node name="LetterDisplayTimer" type="Timer" parent="."]
 one_shot = true
-autostart = true
 
 [connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
