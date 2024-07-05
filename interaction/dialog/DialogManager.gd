@@ -34,8 +34,10 @@ func _show_text_box():
 func _on_text_box_finished_displaying():
 	can_advance_line = true
 
-
 func _unhandled_input(event):
+	print("event: ", event.is_action_pressed("advance_dialog"))
+	print("is_dialog_active: ", is_dialog_active)
+	print("can_advance_line: ", can_advance_line)
 	if (
 		event.is_action_pressed("advance_dialog") &&
 	 	is_dialog_active &&
