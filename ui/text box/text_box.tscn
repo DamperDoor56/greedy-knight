@@ -1,9 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://db7gt3xsalxdr"]
+[gd_scene load_steps=10 format=3 uid="uid://db7gt3xsalxdr"]
 
 [ext_resource type="Script" path="res://ui/text box/text_box.gd" id="1_nrxiv"]
 [ext_resource type="Texture2D" uid="uid://cf5ymlkhgi7vc" path="res://assets/sprites/Textbox.png" id="1_ogsha"]
 [ext_resource type="Texture2D" uid="uid://b0qqws7yls8qr" path="res://assets/sprites/tail.png" id="3_ijohs"]
 [ext_resource type="FontFile" uid="uid://b18lec57aacib" path="res://assets/fonts/PixelOperator8.ttf" id="3_myoeg"]
+[ext_resource type="Texture2D" uid="uid://bxivmpmpy1mol" path="res://assets/sprites/arrow_down-Sheet.png" id="4_sb2e4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_guqjl"]
+atlas = ExtResource("4_sb2e4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_baxoa"]
+atlas = ExtResource("4_sb2e4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yp4m"]
+atlas = ExtResource("4_sb2e4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uo5tn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_guqjl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_baxoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yp4m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="TextBox" type="MarginContainer"]
 z_index = 10
@@ -42,11 +72,24 @@ scale = Vector2(0.8125, 0.71875)
 texture = ExtResource("3_ijohs")
 
 [node name="Control2" type="Control" parent="NinePatchRect"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
 
 [node name="NextIndicator" type="AnimatedSprite2D" parent="NinePatchRect/Control2"]
+visible = false
+position = Vector2(36.375, 35.6875)
+scale = Vector2(0.703125, 0.710937)
+sprite_frames = SubResource("SpriteFrames_uo5tn")
+autoplay = "default"
+frame_progress = 0.732503
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -68,5 +111,6 @@ justification_flags = 0
 one_shot = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 0.67
 
 [connection signal="timeout" from="LetterDisplayTimer" to="." method="_on_letter_display_timer_timeout"]
