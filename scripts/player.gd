@@ -4,19 +4,17 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 
 @onready var player_sprite = $AnimatedSprite2D
-# @onready var interaction_area: InteractionArea = $InteractionArea
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var currentHealth: int = 3
 
+	
 func _physics_process(delta):
 	if DialogManager.is_dialog_active:
 		return
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -46,3 +44,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+	#or index in get_slide_collision_count():
+		#ar collision := get_slide_collision(index)
+		#ar body := collision.get_collider()
+		#rint("Collided with: ", body.name)

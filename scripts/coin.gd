@@ -10,4 +10,3 @@ func _ready():
 func _on_body_entered(_body):
 	game_manager.add_coins()
 	animation_player.play("pickup")
-
