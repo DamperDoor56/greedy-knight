@@ -1,15 +1,18 @@
-[gd_scene load_steps=22 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=35 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
 [ext_resource type="Texture2D" uid="uid://jc1347xb4yuw" path="res://assets/sprites/world_tileset.png" id="2_5hxd1"]
 [ext_resource type="PackedScene" uid="uid://cak6teco6bvx8" path="res://scenes/platform.tscn" id="3_1sk3t"]
 [ext_resource type="PackedScene" uid="uid://cle2lv0rcqot7" path="res://scenes/coin.tscn" id="4_w7ly1"]
+[ext_resource type="Script" path="res://scenes/health_bar.gd" id="5_g1hia"]
 [ext_resource type="PackedScene" uid="uid://c6jcov7giiaj8" path="res://scenes/killzone.tscn" id="5_lrljr"]
 [ext_resource type="PackedScene" uid="uid://b7fvfg13wn1ev" path="res://scenes/bottle.tscn" id="7_8tkrk"]
-[ext_resource type="PackedScene" uid="uid://d1uxm2om4r05r" path="res://scenes/slime.tscn" id="7_a1d85"]
 [ext_resource type="FontFile" uid="uid://b18lec57aacib" path="res://assets/fonts/PixelOperator8.ttf" id="8_vouee"]
 [ext_resource type="PackedScene" uid="uid://5y481fhtllt" path="res://scenes/sign.tscn" id="10_7iydc"]
+[ext_resource type="Texture2D" uid="uid://dqskxlh0eqcb4" path="res://assets/sprites/slime_purple.png" id="10_h0p3e"]
+[ext_resource type="Script" path="res://scenes/slime_2.gd" id="10_oxt4h"]
+[ext_resource type="Script" path="res://scenes/hurtzone.gd" id="12_l8st2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ksooc"]
 texture = ExtResource("2_5hxd1")
@@ -176,7 +179,14 @@ texture = ExtResource("2_5hxd1")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ksooc")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywxgd"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf28h"]
+bg_color = Color(1, 0.0285192, 0.0919173, 1)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_30um0"]
+distance = -6.0
 
 [sub_resource type="Animation" id="Animation_tkaer"]
 resource_name = "move"
@@ -264,6 +274,59 @@ _data = {
 "move3": SubResource("Animation_q4ot2")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kb8nt"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2tw8"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efe0u"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0u8b8"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_es0nr"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uhrx"]
+atlas = ExtResource("10_h0p3e")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s2rab"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kb8nt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2tw8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efe0u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0u8b8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_es0nr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uhrx")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4jt8b"]
+radius = 8.0
+
 [node name="Game" type="Node2D"]
 
 [node name="Game Manager" type="Node" parent="."]
@@ -299,6 +362,18 @@ zoom = Vector2(4, 4)
 limit_bottom = 380
 limit_smoothed = true
 position_smoothing_enabled = true
+
+[node name="Health Bar" type="ProgressBar" parent="Player"]
+offset_left = -146.0
+offset_top = -65.0
+offset_right = -92.0
+offset_bottom = -58.0
+theme_override_styles/background = SubResource("StyleBoxFlat_ywxgd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sf28h")
+max_value = 3.0
+value = 3.0
+show_percentage = false
+script = ExtResource("5_g1hia")
 
 [node name="Killzone" parent="." instance=ExtResource("5_lrljr")]
 position = Vector2(-38, 323)
@@ -390,8 +465,32 @@ autoplay = "move3"
 
 [node name="Enemies" type="Node" parent="."]
 
-[node name="Slime" parent="Enemies" instance=ExtResource("7_a1d85")]
-position = Vector2(184, -60)
+[node name="Slime2" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(146, -55)
+script = ExtResource("10_oxt4h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/Slime2"]
+position = Vector2(-1, -2)
+sprite_frames = SubResource("SpriteFrames_s2rab")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.729953
+
+[node name="RayCastRight" type="RayCast2D" parent="Enemies/Slime2"]
+position = Vector2(2, 0)
+target_position = Vector2(30, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="Enemies/Slime2"]
+position = Vector2(-3, 0)
+target_position = Vector2(-30, 0)
+
+[node name="HurtZone" parent="Enemies/Slime2" instance=ExtResource("5_lrljr")]
+position = Vector2(3, 98)
+script = ExtResource("12_l8st2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Slime2/HurtZone"]
+position = Vector2(-4, -93)
+shape = SubResource("CircleShape2D_4jt8b")
 
 [node name="Labels" type="Node" parent="."]
 
