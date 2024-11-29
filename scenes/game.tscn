@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=38 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cle2lv0rcqot7" path="res://scenes/coin.tscn" id="4_w7ly1"]
 [ext_resource type="Script" path="res://scenes/health_bar.gd" id="5_g1hia"]
 [ext_resource type="PackedScene" uid="uid://c6jcov7giiaj8" path="res://scenes/killzone.tscn" id="5_lrljr"]
+[ext_resource type="AudioStream" uid="uid://2pet1n0rqqy7" path="res://assets/sounds/hurt.wav" id="6_kvkoq"]
 [ext_resource type="PackedScene" uid="uid://b7fvfg13wn1ev" path="res://scenes/bottle.tscn" id="7_8tkrk"]
 [ext_resource type="FontFile" uid="uid://b18lec57aacib" path="res://assets/fonts/PixelOperator8.ttf" id="8_vouee"]
 [ext_resource type="PackedScene" uid="uid://5y481fhtllt" path="res://scenes/sign.tscn" id="10_7iydc"]
@@ -392,6 +393,9 @@ max_value = 3.0
 value = 3.0
 show_percentage = false
 script = ExtResource("5_g1hia")
+
+[node name="HurtSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("6_kvkoq")
 
 [node name="Killzone" parent="." instance=ExtResource("5_lrljr")]
 position = Vector2(-38, 323)

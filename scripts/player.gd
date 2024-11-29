@@ -4,9 +4,7 @@ const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
 @onready var health_bar: ProgressBar = $"Health Bar"
 @onready var player_sprite = $AnimatedSprite2D
-@onready var hurt_sound: AudioStream = preload("res://assets/sounds/hurt.wav")
-@onready var audio_player = $AudioStreamPlayer2D
-
+@onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -17,7 +15,7 @@ var is_taking_damage: bool = false
 func _take_damage():
 	if is_taking_damage == true:
 		player_sprite.play("hit") 
-		#audio_player.play(hurt_sound)
+		hurt_sound.play()
 		health -= 1
 		health_bar.value = health
 		await get_tree().create_timer(0.3).timeout
