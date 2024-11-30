@@ -5,6 +5,7 @@ const JUMP_VELOCITY = -300.0
 @onready var health_bar: ProgressBar = $"Health Bar"
 @onready var player_sprite = $AnimatedSprite2D
 @onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
+@onready var jump_sound: AudioStreamPlayer2D = $JumpSound
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -34,6 +35,7 @@ func _physics_process(delta):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		jump_sound.play()
 		velocity.y = JUMP_VELOCITY
 		
 	# Gets the input direction
@@ -60,7 +62,3 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
-	#or index in get_slide_collision_count():
-		#ar collision := get_slide_collision(index)
-		#ar body := collision.get_collider()
-		#rint("Collided with: ", body.name)

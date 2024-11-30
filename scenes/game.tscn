@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=39 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c6jcov7giiaj8" path="res://scenes/killzone.tscn" id="5_lrljr"]
 [ext_resource type="AudioStream" uid="uid://2pet1n0rqqy7" path="res://assets/sounds/hurt.wav" id="6_kvkoq"]
 [ext_resource type="PackedScene" uid="uid://b7fvfg13wn1ev" path="res://scenes/bottle.tscn" id="7_8tkrk"]
+[ext_resource type="AudioStream" uid="uid://4g1f4fhgpa5x" path="res://assets/sounds/jump.wav" id="7_sbixi"]
 [ext_resource type="FontFile" uid="uid://b18lec57aacib" path="res://assets/fonts/PixelOperator8.ttf" id="8_vouee"]
 [ext_resource type="PackedScene" uid="uid://5y481fhtllt" path="res://scenes/sign.tscn" id="10_7iydc"]
 [ext_resource type="Texture2D" uid="uid://dqskxlh0eqcb4" path="res://assets/sprites/slime_purple.png" id="10_h0p3e"]
@@ -396,6 +397,13 @@ script = ExtResource("5_g1hia")
 
 [node name="HurtSound" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("6_kvkoq")
+volume_db = -16.839
+pitch_scale = 4.0
+
+[node name="JumpSound" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource("7_sbixi")
+volume_db = -31.696
+pitch_scale = 0.73
 
 [node name="Killzone" parent="." instance=ExtResource("5_lrljr")]
 position = Vector2(-38, 323)
