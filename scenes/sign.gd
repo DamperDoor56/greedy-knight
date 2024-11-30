@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var interaction_area: InteractionArea = $InteractionArea
 @onready var sprite_2d = $Sprite2D
-@onready var speech_sound = preload("res://assets/sounds/miguel_sample.wav")
+@onready var speech_sound = preload("res://assets/sounds/voice_sample.wav")
 
 const lines: Array[String] = [
 	"Hello, who are you?",
