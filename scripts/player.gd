@@ -2,18 +2,20 @@ extends CharacterBody2D
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
-@onready var health_bar: ProgressBar = $"Health Bar"
+
 @onready var player_sprite = $AnimatedSprite2D
 @onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
 @onready var jump_sound: AudioStreamPlayer2D = $JumpSound
-@onready var death_timer: Timer = $DeathTimer
+@onready var health_bar: ProgressBar = $"../CanvasLayer/Health Bar"
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = 3
 var is_taking_damage: bool = false
 
+#----------------
 # Take damage
+#----------------
 func _take_damage():
 	if is_taking_damage == true:
 		player_sprite.play("hit") 
@@ -34,6 +36,9 @@ func _on_hurt_zone_body_entered(body: Node2D) -> void:
 		get_tree().reload_current_scene()
 		Engine.time_scale = 1
 
+#----------------
+# Physics process
+#----------------
 func _physics_process(delta):
 	if DialogManager.is_dialog_active:
 		return
