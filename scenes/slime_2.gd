@@ -8,20 +8,17 @@ var direction = 1
 @onready var ray_cast_left = $RayCastLeft
 @onready var slime_sprite = $AnimatedSprite2D
 @onready var health_bar: ProgressBar = $"../../Player/Health Bar"
+@onready var player: CharacterBody2D = $"../../Player"
 
 var health = 3
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass
 
 func _substract_health():
 	health_bar.value = health
 	health -= 1
-	
-func _on_body_entered(body):
-	print("It entered")
-	_substract_health()
 
+func _on_body_entered(body:Node):
+	print(body, " entered")
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if ray_cast_right.is_colliding():

@@ -1,8 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1uxm2om4r05r"]
+[gd_scene load_steps=8 format=3 uid="uid://d1uxm2om4r05r"]
 
 [ext_resource type="Texture2D" uid="uid://c8istwwwnjg76" path="res://assets/sprites/slime_green.png" id="1_yt61i"]
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_yx31j"]
-[ext_resource type="PackedScene" uid="uid://c6jcov7giiaj8" path="res://scenes/killzone.tscn" id="2_4ki0k"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ck3dx"]
 atlas = ExtResource("1_yt61i")
@@ -40,10 +39,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yk5y1"]
-radius = 4.0
-height = 10.0
-
 [node name="Slime" type="Node2D"]
 script = ExtResource("1_yx31j")
 
@@ -53,12 +48,6 @@ animation = &"idle"
 autoplay = "idle"
 frame_progress = 0.0461037
 flip_h = true
-
-[node name="Killzone" parent="." instance=ExtResource("2_4ki0k")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0, 7)
-shape = SubResource("CapsuleShape2D_yk5y1")
 
 [node name="RayCastRight" type="RayCast2D" parent="."]
 position = Vector2(0, 6)
