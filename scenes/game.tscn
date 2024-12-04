@@ -1,7 +1,8 @@
-[gd_scene load_steps=39 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=40 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
+[ext_resource type="Script" path="res://scenes/state_machine.gd" id="1_sp8b3"]
 [ext_resource type="Texture2D" uid="uid://jc1347xb4yuw" path="res://assets/sprites/world_tileset.png" id="2_5hxd1"]
 [ext_resource type="PackedScene" uid="uid://cak6teco6bvx8" path="res://scenes/platform.tscn" id="3_1sk3t"]
 [ext_resource type="PackedScene" uid="uid://cle2lv0rcqot7" path="res://scenes/coin.tscn" id="4_w7ly1"]
@@ -347,6 +348,7 @@ animations = [{
 radius = 4.12311
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_sp8b3")
 
 [node name="Game Manager" type="Node" parent="."]
 unique_name_in_owner = true

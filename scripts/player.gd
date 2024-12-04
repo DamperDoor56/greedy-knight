@@ -6,6 +6,7 @@ const JUMP_VELOCITY = -300.0
 @onready var player_sprite = $AnimatedSprite2D
 @onready var hurt_sound: AudioStreamPlayer2D = $HurtSound
 @onready var jump_sound: AudioStreamPlayer2D = $JumpSound
+@onready var death_timer: Timer = $DeathTimer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -22,9 +23,16 @@ func _take_damage():
 		await get_tree().create_timer(0.3).timeout
 		is_taking_damage = false
 	
+
 func _on_hurt_zone_body_entered(body: Node2D) -> void:
 	is_taking_damage = true
 	_take_damage()
+	if health == 0:  
+		body.get_node("CollisionShape2D").queue_free()
+		Engine.time_scale = 0.3
+		await get_tree().create_timer(0.8).timeout
+		get_tree().reload_current_scene()
+		Engine.time_scale = 1
 
 func _physics_process(delta):
 	if DialogManager.is_dialog_active:
