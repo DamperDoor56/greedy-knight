@@ -1,8 +1,7 @@
-[gd_scene load_steps=40 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=49 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
-[ext_resource type="Script" path="res://scenes/state_machine.gd" id="1_sp8b3"]
 [ext_resource type="Texture2D" uid="uid://jc1347xb4yuw" path="res://assets/sprites/world_tileset.png" id="2_5hxd1"]
 [ext_resource type="PackedScene" uid="uid://cak6teco6bvx8" path="res://scenes/platform.tscn" id="3_1sk3t"]
 [ext_resource type="PackedScene" uid="uid://cle2lv0rcqot7" path="res://scenes/coin.tscn" id="4_w7ly1"]
@@ -16,6 +15,32 @@
 [ext_resource type="Texture2D" uid="uid://dqskxlh0eqcb4" path="res://assets/sprites/slime_purple.png" id="10_h0p3e"]
 [ext_resource type="Script" path="res://scenes/slime_2.gd" id="10_oxt4h"]
 [ext_resource type="Script" path="res://scenes/hurtzone.gd" id="12_l8st2"]
+[ext_resource type="Texture2D" uid="uid://c8istwwwnjg76" path="res://assets/sprites/slime_green.png" id="15_0ur5p"]
+
+[sub_resource type="GDScript" id="GDScript_ffmhe"]
+script/source = "extends Node2D
+class_name StateMachine
+
+var state = null
+var previus_state = null
+
+@onready var parent = get_parent()
+
+func _state_logic(delta):
+	pass
+	
+func _get_transition(delta):
+	return null
+
+func _enter_state(new_state, old_state):
+	pass
+
+func set_state(new_state):
+	previus_state = state
+	state = new_state
+	
+	
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ksooc"]
 texture = ExtResource("2_5hxd1")
@@ -334,12 +359,81 @@ animations = [{
 "texture": SubResource("AtlasTexture_5uhrx")
 }],
 "loop": true,
-"name": &"new_animation",
-"speed": 3.0
+"name": &"purple_slime",
+"speed": 8.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4jt8b"]
 radius = 4.12311
+
+[sub_resource type="GDScript" id="GDScript_l7noa"]
+script/source = "extends \"res://scenes/hurtzone.gd\"
+
+var speed = 20
+var player_pos
+var target_pos
+@onready var player = get_parent().get_parent().get_node(\"Player\")
+
+func _ready() -> void:
+	$ProgressBar.value = 5
+
+func _physics_process(delta: float) -> void:
+	player_pos = player.position
+	target_pos = (player_pos - position).normalized()
+	
+	if position.distance_to(player_pos) > 3:
+		position += target_pos * speed * delta
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xi6bm"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mm2e"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmija"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipibc"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grmkl"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(0, 48, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxopi"]
+atlas = ExtResource("15_0ur5p")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sjbxe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xi6bm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mm2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmija")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipibc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grmkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxopi")
+}],
+"loop": true,
+"name": &"green_slime",
+"speed": 8.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywxgd"]
 bg_color = Color(0, 0, 0, 1)
@@ -348,7 +442,7 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0.0285192, 0.0919173, 1)
 
 [node name="Game" type="Node2D"]
-script = ExtResource("1_sp8b3")
+script = SubResource("GDScript_ffmhe")
 
 [node name="Game Manager" type="Node" parent="."]
 unique_name_in_owner = true
@@ -492,9 +586,9 @@ script = ExtResource("10_oxt4h")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/Slime2"]
 position = Vector2(-1, -2)
 sprite_frames = SubResource("SpriteFrames_s2rab")
-animation = &"new_animation"
-autoplay = "new_animation"
-frame_progress = 0.729953
+animation = &"purple_slime"
+autoplay = "purple_slime"
+frame_progress = 0.786386
 
 [node name="RayCastRight" type="RayCast2D" parent="Enemies/Slime2"]
 position = Vector2(2, 0)
@@ -511,6 +605,26 @@ script = ExtResource("12_l8st2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Slime2/HurtZone"]
 position = Vector2(-4, -93)
 shape = SubResource("CircleShape2D_4jt8b")
+
+[node name="HurtZone" parent="Enemies" instance=ExtResource("5_lrljr")]
+position = Vector2(80, -93)
+script = SubResource("GDScript_l7noa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/HurtZone"]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_4jt8b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/HurtZone"]
+sprite_frames = SubResource("SpriteFrames_sjbxe")
+animation = &"green_slime"
+autoplay = "green_slime"
+frame_progress = 0.378803
+
+[node name="ProgressBar" type="ProgressBar" parent="Enemies/HurtZone"]
+offset_left = -50.0
+offset_top = -45.0
+offset_right = 63.0
+offset_bottom = -18.0
 
 [node name="Labels" type="Node" parent="."]
 
@@ -569,3 +683,4 @@ show_percentage = false
 script = ExtResource("5_g1hia")
 
 [connection signal="body_entered" from="Enemies/Slime2/HurtZone" to="Player" method="_on_hurt_zone_body_entered"]
+[connection signal="body_entered" from="Enemies/HurtZone" to="Player" method="_on_hurt_zone_body_entered"]
