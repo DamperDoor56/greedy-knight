@@ -372,7 +372,8 @@ script/source = "extends \"res://scenes/hurtzone.gd\"
 var speed = 20
 var player_pos
 var target_pos
-@onready var player = get_parent().get_parent().get_node(\"Player\")
+
+@onready var player = get_parent().get_parent().get_parent().get_node(\"Player\")
 
 func _ready() -> void:
 	pass
@@ -606,19 +607,28 @@ script = ExtResource("12_l8st2")
 position = Vector2(-4, -93)
 shape = SubResource("CircleShape2D_4jt8b")
 
-[node name="HurtZone" parent="Enemies" instance=ExtResource("5_lrljr")]
-position = Vector2(80, -93)
-script = SubResource("GDScript_l7noa")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/HurtZone"]
-position = Vector2(0, -1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Slime2"]
+position = Vector2(-4, -93)
 shape = SubResource("CircleShape2D_4jt8b")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/HurtZone"]
+[node name="SmartEnemy" type="CharacterBody2D" parent="Enemies"]
+collision_layer = 2
+
+[node name="Hurtzone" parent="Enemies/SmartEnemy" instance=ExtResource("5_lrljr")]
+position = Vector2(80, -86)
+script = SubResource("GDScript_l7noa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy/Hurtzone"]
+shape = SubResource("CircleShape2D_4jt8b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/SmartEnemy/Hurtzone"]
 sprite_frames = SubResource("SpriteFrames_sjbxe")
 animation = &"green_slime"
 autoplay = "green_slime"
 frame_progress = 0.378803
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy"]
+shape = SubResource("CircleShape2D_4jt8b")
 
 [node name="Labels" type="Node" parent="."]
 
@@ -677,4 +687,4 @@ show_percentage = false
 script = ExtResource("5_g1hia")
 
 [connection signal="body_entered" from="Enemies/Slime2/HurtZone" to="Player" method="_on_hurt_zone_body_entered"]
-[connection signal="body_entered" from="Enemies/HurtZone" to="Player" method="_on_hurt_zone_body_entered"]
+[connection signal="body_entered" from="Enemies/SmartEnemy/Hurtzone" to="Player" method="_on_hurt_zone_body_entered"]
