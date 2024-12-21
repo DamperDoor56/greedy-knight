@@ -5,4 +5,5 @@ extends Area2D
 var health: int = 3
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	health_bar.value = health
+	if health_bar:
+		health_bar.value = health
