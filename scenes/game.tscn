@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://dqskxlh0eqcb4" path="res://assets/sprites/slime_purple.png" id="10_h0p3e"]
 [ext_resource type="Script" path="res://scenes/slime_2.gd" id="10_oxt4h"]
 [ext_resource type="Script" path="res://scenes/hurtzone.gd" id="12_l8st2"]
+[ext_resource type="Script" path="res://scenes/smart_enemy.gd" id="14_gfaw8"]
 [ext_resource type="Texture2D" uid="uid://c8istwwwnjg76" path="res://assets/sprites/slime_green.png" id="15_0ur5p"]
 
 [sub_resource type="GDScript" id="GDScript_ffmhe"]
@@ -366,30 +367,6 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4jt8b"]
 radius = 4.12311
 
-[sub_resource type="GDScript" id="GDScript_l7noa"]
-script/source = "extends \"res://scenes/hurtzone.gd\"
-
-var speed = 40
-var player_pos
-var target_pos
-
-@onready var player = get_parent().get_parent().get_parent().get_node(\"Player\")
-@onready var slime_sprite: AnimatedSprite2D = $AnimatedSprite2D
-
-func _ready() -> void:
-	pass
-		
-
-func _physics_process(delta: float) -> void:
-	player_pos = player.position.x
-	if abs(position.x - player_pos) <= 60:
-		var target_pos = Vector2(player_pos, position.y)
-		var direction = (target_pos - position).normalized()
-		position.x += speed * direction.x * delta
-	else:
-		print(\"It's not close!\")
-"
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi6bm"]
 atlas = ExtResource("15_0ur5p")
 region = Rect2(0, 24, 24, 24)
@@ -604,36 +581,47 @@ position = Vector2(-3, 0)
 target_position = Vector2(-30, 0)
 
 [node name="HurtZone" parent="Enemies/Slime2" instance=ExtResource("5_lrljr")]
-position = Vector2(3, 98)
+position = Vector2(-1, 5)
 script = ExtResource("12_l8st2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Slime2/HurtZone"]
-position = Vector2(-4, -93)
+position = Vector2(2, -2)
 shape = SubResource("CircleShape2D_4jt8b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Slime2"]
-position = Vector2(-4, -93)
+position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_4jt8b")
 
 [node name="SmartEnemy" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(100, 22)
 collision_layer = 2
+script = ExtResource("14_gfaw8")
 
-[node name="Hurtzone" parent="Enemies/SmartEnemy" instance=ExtResource("5_lrljr")]
-position = Vector2(102, 27)
-script = SubResource("GDScript_l7noa")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy/Hurtzone"]
-shape = SubResource("CircleShape2D_4jt8b")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/SmartEnemy/Hurtzone"]
-position = Vector2(1, -6)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/SmartEnemy"]
+position = Vector2(-2, -2)
 sprite_frames = SubResource("SpriteFrames_sjbxe")
 animation = &"green_slime"
 autoplay = "green_slime"
 frame_progress = 0.378803
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy"]
+[node name="Hurtzone" parent="Enemies/SmartEnemy" instance=ExtResource("5_lrljr")]
+position = Vector2(-2, 1)
+script = ExtResource("12_l8st2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy/Hurtzone"]
 shape = SubResource("CircleShape2D_4jt8b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy"]
+position = Vector2(-1, 3)
+shape = SubResource("CircleShape2D_4jt8b")
+
+[node name="RayCastRight" type="RayCast2D" parent="Enemies/SmartEnemy"]
+position = Vector2(1, 2)
+target_position = Vector2(9, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="Enemies/SmartEnemy"]
+position = Vector2(-6, 1)
+target_position = Vector2(-8, 0)
 
 [node name="Labels" type="Node" parent="."]
 
@@ -678,10 +666,10 @@ layer = 12
 process_priority = 10
 auto_translate_mode = 2
 clip_contents = true
-offset_left = 13.0
-offset_top = 13.0
-offset_right = 163.0
-offset_bottom = 28.0
+offset_left = 17.0
+offset_top = 39.0
+offset_right = 167.0
+offset_bottom = 54.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ywxgd")
