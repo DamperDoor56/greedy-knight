@@ -369,21 +369,25 @@ radius = 4.12311
 [sub_resource type="GDScript" id="GDScript_l7noa"]
 script/source = "extends \"res://scenes/hurtzone.gd\"
 
-var speed = 20
+var speed = 40
 var player_pos
 var target_pos
 
 @onready var player = get_parent().get_parent().get_parent().get_node(\"Player\")
+@onready var slime_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	pass
+		
 
 func _physics_process(delta: float) -> void:
-	player_pos = player.position
-	target_pos = (player_pos - position).normalized()
-	
-	if position.distance_to(player_pos) > 3:
-		position += target_pos * speed * delta
+	player_pos = player.position.x
+	if abs(position.x - player_pos) <= 60:
+		var target_pos = Vector2(player_pos, position.y)
+		var direction = (target_pos - position).normalized()
+		position.x += speed * direction.x * delta
+	else:
+		print(\"It's not close!\")
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi6bm"]
@@ -615,13 +619,14 @@ shape = SubResource("CircleShape2D_4jt8b")
 collision_layer = 2
 
 [node name="Hurtzone" parent="Enemies/SmartEnemy" instance=ExtResource("5_lrljr")]
-position = Vector2(80, -86)
+position = Vector2(102, 27)
 script = SubResource("GDScript_l7noa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/SmartEnemy/Hurtzone"]
 shape = SubResource("CircleShape2D_4jt8b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Enemies/SmartEnemy/Hurtzone"]
+position = Vector2(1, -6)
 sprite_frames = SubResource("SpriteFrames_sjbxe")
 animation = &"green_slime"
 autoplay = "green_slime"
