@@ -680,4 +680,3 @@ show_percentage = false
 script = ExtResource("5_g1hia")
 
 [connection signal="body_entered" from="Enemies/Slime2/HurtZone" to="Player" method="_on_hurt_zone_body_entered"]
-[connection signal="body_entered" from="Enemies/SmartEnemy/Hurtzone" to="Player" method="_on_hurt_zone_body_entered"]

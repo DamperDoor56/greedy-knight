@@ -10,31 +10,32 @@ const JUMP_VELOCITY = -300.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var health: int = 3
+var health: int = 4
 var is_taking_damage: bool = false
-
 #----------------
 # Take damage
 #----------------
+
 func _take_damage():
 	if is_taking_damage == true:
-		player_sprite.play("hit") 
-		hurt_sound.play()
 		health -= 1
 		health_bar.value = health
+		player_sprite.play("hit") 
+		hurt_sound.play()
 		await get_tree().create_timer(0.3).timeout
 		is_taking_damage = false
 	
 
 func _on_hurt_zone_body_entered(body: Node2D) -> void:
-	is_taking_damage = true
-	_take_damage()
-	if health == 0:  
-		body.get_node("CollisionShape2D").queue_free()
-		Engine.time_scale = 0.3
-		await get_tree().create_timer(0.8).timeout
-		get_tree().reload_current_scene()
-		Engine.time_scale = 1
+		is_taking_damage = true
+		if is_taking_damage == true:
+			_take_damage()
+		if health == 0:  
+			body.get_node("CollisionShape2D").queue_free()
+			Engine.time_scale = 0.3
+			await get_tree().create_timer(0.8).timeout
+			get_tree().reload_current_scene()
+			Engine.time_scale = 1
 
 #----------------
 # Physics process
