@@ -31,17 +31,12 @@ func _on_smart_hurtzone_body_entered(body: Node2D) -> void:
 				Engine.time_scale = 1
 
 func _take_damage():
-		print(health_bar.value)
 		player_sprite.play("hit") 
 		hurt_sound.play()
 		health -= 1
 		health_bar.value = health
-
-
 		await get_tree().create_timer(0.3).timeout
 		is_taking_damage_from_smart = false
-		print(health_bar.value)
-		
 
 #----------------
 # Physics process
