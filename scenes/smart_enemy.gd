@@ -1,8 +1,10 @@
 extends "res://scenes/slime_2.gd"
+
 @onready var slime_sprite_smart: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_right_smart: RayCast2D = $RayCastRight
 @onready var ray_cast_left_smart: RayCast2D = $RayCastLeft
 
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var player_pos
 var target_pos
 var previous_x_position: float = 0.0
