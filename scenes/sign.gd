@@ -5,10 +5,8 @@ extends Node2D
 @onready var speech_sound = preload("res://assets/sounds/voice_sample.wav")
 
 const lines: Array[String] = [
-	"Hello, who are you?",
-	"I don't know you!",
-	"Get away!",
-	"Help police!"
+	"Hello! Welcome",
+	"Have at it! These are for you",
 ]
 
 func _ready():
