@@ -10,7 +10,7 @@ const JUMP_VELOCITY = -300.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var health: int = 4
+var health: int = 3
 var is_taking_damage_from_smart: bool = false
 
 #----------------
@@ -21,8 +21,7 @@ var is_taking_damage_from_smart: bool = false
 func _on_smart_hurtzone_body_entered(body: Node2D) -> void:
 		if body == self:
 			is_taking_damage_from_smart = true
-			if is_taking_damage_from_smart == true:
-				_take_damage()
+			_take_damage()
 			if health == 0:  
 				body.get_node("CollisionShape2D").queue_free()
 				Engine.time_scale = 0.3
