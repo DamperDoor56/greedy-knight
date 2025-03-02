@@ -1,8 +1,8 @@
 extends Node
 
-@onready var score_label = $ScoreLabel
 var score = 0
+@onready var score_label: Label = $"../CanvasLayer2/ScoreLabel"
 
 func add_coins():
 	score += 1
-	score_label.text = "Coleccionaste " + str(score) + " monedas! :D"
+	score_label.text = str(score)
