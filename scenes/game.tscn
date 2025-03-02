@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=58 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -320,8 +320,19 @@ animations = [{
 distance = -6.0
 
 [sub_resource type="Animation" id="Animation_mgowg"]
-length = 2.0
 loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(32, -25), Vector2(32, -50)]
+}
 
 [sub_resource type="Animation" id="Animation_q4ot2"]
 resource_name = "move3"
@@ -340,9 +351,26 @@ tracks/0/keys = {
 "values": [Vector2(869, -35), Vector2(869, 63)]
 }
 
+[sub_resource type="Animation" id="Animation_0unh7"]
+resource_name = "move platform 1"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(34, -12), Vector2(34, -56)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xbnf8"]
 _data = {
 "RESET": SubResource("Animation_mgowg"),
+"move platform 1": SubResource("Animation_0unh7"),
 "move3": SubResource("Animation_q4ot2")
 }
 
@@ -356,10 +384,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.96667),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(873, -58), Vector2(873, 70)]
+"values": [Vector2(600, 36)]
 }
 
 [sub_resource type="Animation" id="Animation_4i2m7"]
@@ -379,10 +407,84 @@ tracks/0/keys = {
 "values": [Vector2(599, 36), Vector2(599, -111)]
 }
 
+[sub_resource type="Animation" id="Animation_kkf3f"]
+resource_name = "move platform3"
+length = 2.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.43333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(873, -58), Vector2(873, 50)]
+}
+
+[sub_resource type="Animation" id="Animation_8mg66"]
+resource_name = "move platform 4"
+length = 3.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, 36), Vector2(600, -150)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_axiwp"]
 _data = {
 "RESET": SubResource("Animation_17t85"),
+"move platform 4": SubResource("Animation_8mg66"),
+"move platform3": SubResource("Animation_kkf3f"),
 "move2": SubResource("Animation_4i2m7")
+}
+
+[sub_resource type="Animation" id="Animation_wlnhv"]
+resource_name = "move"
+length = 2.0
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.96667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(394, 7), Vector2(480, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_u2fes"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(394, 7)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ktxs5"]
+_data = {
+"RESET": SubResource("Animation_u2fes"),
+"move": SubResource("Animation_wlnhv")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xi6bm"]
@@ -569,7 +671,7 @@ position = Vector2(124, 10)
 [node name="Platforms" type="Node" parent="."]
 
 [node name="Platform" parent="Platforms" instance=ExtResource("3_1sk3t")]
-position = Vector2(3, -35)
+position = Vector2(32, -25)
 
 [node name="Move 3" type="AnimationPlayer" parent="Platforms/Platform"]
 libraries = {
@@ -578,22 +680,31 @@ libraries = {
 autoplay = "RESET"
 
 [node name="Platform3" parent="Platforms" instance=ExtResource("3_1sk3t")]
-position = Vector2(873, -58)
+position = Vector2(600, 36)
 
 [node name="Move Platform 3" type="AnimationPlayer" parent="Platforms/Platform3"]
 libraries = {
 "": SubResource("AnimationLibrary_axiwp")
 }
-autoplay = "move2"
+autoplay = "move platform3"
 
 [node name="Platform4" parent="Platforms" instance=ExtResource("3_1sk3t")]
-position = Vector2(873, -58)
+position = Vector2(600, 36)
 
 [node name="Move Platform 4" type="AnimationPlayer" parent="Platforms/Platform4"]
 libraries = {
 "": SubResource("AnimationLibrary_axiwp")
 }
-autoplay = "move2"
+autoplay = "move platform 4"
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("3_1sk3t")]
+position = Vector2(394, 7)
+
+[node name="Move Platform2" type="AnimationPlayer" parent="Platforms/Platform2"]
+libraries = {
+"": SubResource("AnimationLibrary_ktxs5")
+}
+autoplay = "move"
 
 [node name="Enemies" type="Node" parent="."]
 
