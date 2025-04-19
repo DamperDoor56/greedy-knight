@@ -7,6 +7,7 @@ extends Node2D
 const lines: Array[String] = [
 	"Hello! Welcome",
 	"Have at it! These are for you",
+	"Also, use the mushroom to jump back!"
 ]
 
 func _ready():
