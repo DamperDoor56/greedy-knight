@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8ri2mkqbn3tk"]
+[gd_scene load_steps=8 format=3 uid="uid://c8ri2mkqbn3tk"]
 
 [ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_80o2t"]
+[ext_resource type="FontFile" uid="uid://ucfh4ku50dkh" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_npeab"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_niis5"]
 bg_color = Color(0.0843129, 0.246997, 0.229114, 1)
@@ -143,11 +144,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -240.5
-offset_top = 58.0
-offset_right = 240.5
-offset_bottom = 187.0
+offset_left = -424.5
+offset_top = 81.0
+offset_right = 424.5
+offset_bottom = 210.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_npeab")
 theme_override_font_sizes/font_size = 70
 text = "Greedy Knight"
 horizontal_alignment = 1
