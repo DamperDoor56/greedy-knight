@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=77 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -11,13 +11,15 @@
 [ext_resource type="AudioStream" uid="uid://4g1f4fhgpa5x" path="res://assets/sounds/jump.wav" id="7_sbixi"]
 [ext_resource type="Texture2D" uid="uid://cwo5xgumrovwi" path="res://assets/sprites/coin.png" id="7_wfryj"]
 [ext_resource type="FontFile" uid="uid://b18lec57aacib" path="res://assets/fonts/PixelOperator8.ttf" id="8_vouee"]
-[ext_resource type="PackedScene" uid="uid://5y481fhtllt" path="res://scenes/sign.tscn" id="10_7iydc"]
 [ext_resource type="Script" path="res://scenes/hurtzone.gd" id="12_l8st2"]
 [ext_resource type="Script" path="res://scenes/smart_enemy.gd" id="14_gfaw8"]
 [ext_resource type="Texture2D" uid="uid://c8istwwwnjg76" path="res://assets/sprites/slime_green.png" id="15_0ur5p"]
 [ext_resource type="Texture2D" uid="uid://bbgble3awpwxc" path="res://assets/sprites/fungi.png" id="15_43gty"]
 [ext_resource type="Script" path="res://scenes/bounce_fungui_interaction_area.gd" id="16_1jobj"]
+[ext_resource type="Script" path="res://scenes/sign.gd" id="16_rof44"]
+[ext_resource type="Texture2D" uid="uid://hlsyt03fifw5" path="res://assets/sprites/sign.png" id="16_th2w7"]
 [ext_resource type="Script" path="res://scenes/orange_knight.gd" id="17_20uo3"]
+[ext_resource type="Script" path="res://scripts/interaction_area.gd" id="17_i2fed"]
 [ext_resource type="Texture2D" uid="uid://chr38f2mgekb8" path="res://assets/sprites/white_knight.png" id="17_r5c6t"]
 [ext_resource type="Script" path="res://scenes/knight_range.gd" id="18_1ff07"]
 
@@ -579,6 +581,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_n88mp"]
 radius = 8.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_br7b3"]
+radius = 26.0192
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_p7abw"]
 atlas = ExtResource("17_r5c6t")
 region = Rect2(0, 0, 16, 19)
@@ -706,7 +711,7 @@ position = Vector2(468, -29)
 position = Vector2(134, 178)
 
 [node name="Coin16" parent="Coins" instance=ExtResource("4_w7ly1")]
-position = Vector2(203, 199)
+position = Vector2(206, 200)
 
 [node name="Coin17" parent="Coins" instance=ExtResource("4_w7ly1")]
 position = Vector2(282, 200)
@@ -745,7 +750,7 @@ position = Vector2(161, -92)
 position = Vector2(78, -15)
 
 [node name="Coin14" parent="Coins" instance=ExtResource("4_w7ly1")]
-position = Vector2(224, 198)
+position = Vector2(226, 199)
 
 [node name="Coin18" parent="Coins" instance=ExtResource("4_w7ly1")]
 position = Vector2(83, 178)
@@ -913,9 +918,23 @@ shape = SubResource("CircleShape2D_n88mp")
 
 [node name="Info" type="Node" parent="."]
 
-[node name="Sign" parent="Info" instance=ExtResource("10_7iydc")]
-position = Vector2(264, 202)
-script = null
+[node name="Sign" type="Node2D" parent="Info"]
+position = Vector2(254, 200)
+script = ExtResource("16_rof44")
+
+[node name="SignSprite" type="Sprite2D" parent="Info/Sign"]
+texture = ExtResource("16_th2w7")
+
+[node name="InteractionAreaSign" type="Area2D" parent="Info/Sign"]
+position = Vector2(0, -2)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("17_i2fed")
+action_name = "read"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Info/Sign/InteractionAreaSign"]
+position = Vector2(0, -13)
+shape = SubResource("CircleShape2D_br7b3")
 
 [node name="OrangeKnight" type="Node2D" parent="Info"]
 position = Vector2(-50, 28)
@@ -960,5 +979,8 @@ script = ExtResource("5_g1hia")
 [connection signal="body_entered" from="Enemies/SmartEnemy/Hurtzone" to="Player" method="_on_smart_hurtzone_body_entered"]
 [connection signal="body_entered" from="Perks/BounceFungui2/BounceFunguiInteractionArea" to="Perks/BounceFungui2/BounceFunguiInteractionArea" method="_on_body_entered"]
 [connection signal="body_entered" from="Perks/BounceFungui/BounceFunguiInteractionArea" to="Perks/BounceFungui/BounceFunguiInteractionArea" method="_on_body_entered"]
+[connection signal="body_entered" from="Info/Sign/InteractionAreaSign" to="Info/Sign/InteractionAreaSign" method="_on_body_entered"]
+[connection signal="body_exited" from="Info/Sign/InteractionAreaSign" to="Info/Sign/InteractionAreaSign" method="_on_body_exited"]
+[connection signal="ready" from="Info/Sign/InteractionAreaSign" to="Info/Sign/InteractionAreaSign" method="_on_ready"]
 [connection signal="body_entered" from="Info/OrangeKnight/KnightRange" to="Info/OrangeKnight/KnightRange" method="_on_body_entered"]
 [connection signal="body_exited" from="Info/OrangeKnight/KnightRange" to="Info/OrangeKnight/KnightRange" method="_on_body_exited"]
