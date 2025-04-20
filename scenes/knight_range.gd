@@ -1,8 +1,8 @@
-extends Area2D
-class_name InteractionArea
+extends InteractionArea
 
-@export var action_name: String = "leer"
-var interact: Callable = Callable()
+func _ready():
+	print("Ready knight")
+	interact = Callable()
 
 func _on_body_entered(_body):
 	InteractionManager.register_area(self)

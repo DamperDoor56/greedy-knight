@@ -2,10 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/sign.gd" id="1_7uypa"]
 [ext_resource type="Texture2D" uid="uid://hlsyt03fifw5" path="res://assets/sprites/sign.png" id="1_egrkf"]
-[ext_resource type="PackedScene" uid="uid://cedj5vqlhdcsd" path="res://interaction/interaction_area/interaction_area.tscn" id="2_61gou"]
+[ext_resource type="Script" path="res://scripts/interaction_area.gd" id="3_xrd8s"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mcv36"]
-radius = 34.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_br7b3"]
 
 [node name="Sign" type="Node2D"]
 script = ExtResource("1_7uypa")
@@ -13,8 +12,15 @@ script = ExtResource("1_7uypa")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_egrkf")
 
-[node name="InteractionArea" parent="." instance=ExtResource("2_61gou")]
+[node name="InteractionAreaSign" type="Area2D" parent="."]
+position = Vector2(0, -2)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("3_xrd8s")
+action_name = "read"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
-position = Vector2(1, -26)
-shape = SubResource("CircleShape2D_mcv36")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionAreaSign"]
+shape = SubResource("CircleShape2D_br7b3")
+
+[connection signal="body_entered" from="InteractionAreaSign" to="InteractionAreaSign" method="_on_body_entered"]
+[connection signal="body_exited" from="InteractionAreaSign" to="InteractionAreaSign" method="_on_body_exited"]

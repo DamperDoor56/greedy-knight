@@ -13,10 +13,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health: int = 3
 var is_taking_damage_from_smart: bool = false
 
+
 #----------------
 # Take damage
 #----------------
-
 
 func _on_smart_hurtzone_body_entered(body: Node2D) -> void:
 		if body == self:
@@ -75,5 +75,5 @@ func _physics_process(delta):
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
 	move_and_slide()
