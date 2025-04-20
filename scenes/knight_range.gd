@@ -1,16 +1,11 @@
-extends Area2D
-
-@export var action_name: String = "Talk"
-@export var KnightInteraction: InteractionArea = InteractionArea.new()
-
-var interact: Callable = Callable()
+extends InteractionArea
 
 func _ready():
-	add_child(KnightInteraction)
-	KnightInteraction.interact = Callable(KnightInteraction, "_on_knight_interact")
+	print("Ready knight")
+	interact = Callable()
 
-func _on_body_entered(body: Node2D) -> void:
-	InteractionManager.register_area(KnightInteraction)
+func _on_body_entered(body):
+	InteractionManager.register_area(self)
 
-func _on_body_exited(body: Node2D) -> void:
-	InteractionManager.unregist_area(KnightInteraction)
+func _on_body_exited(body):
+	InteractionManager.unregist_area(self)
