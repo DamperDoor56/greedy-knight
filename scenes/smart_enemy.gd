@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	var distancey = position.y - player_pos_y
 	if abs(distance) <= 60 and abs(distancey) <= 40:
 		#print("It's close!")
-		var target_pos = Vector2(player_pos, position.y)
+		target_pos = Vector2(player_pos, position.y)
 		var new_direction = (target_pos - position).normalized()
 		position.x += speed * new_direction.x * delta
 		

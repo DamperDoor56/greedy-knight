@@ -7,13 +7,12 @@ var direction = 1
 @onready var ray_cast_right = $RayCastRight
 @onready var ray_cast_left = $RayCastLeft
 @onready var slime_sprite = $AnimatedSprite2D
-@onready var health_bar: ProgressBar = $"../../Player/Health Bar"
 @onready var player: CharacterBody2D = $"../../Player"
 
 var health = 3
 
 func _substract_health():
-	health_bar.value = health
+	player.health_bar.value = health
 	health -= 1
 
 func _on_body_entered(body:Node):
