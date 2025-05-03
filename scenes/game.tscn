@@ -385,6 +385,18 @@ _data = {
 [sub_resource type="Animation" id="Animation_17t85"]
 length = 2.0
 loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(600, 36)]
+}
 
 [sub_resource type="Animation" id="Animation_8mg66"]
 resource_name = "move platform 4"
@@ -437,12 +449,30 @@ tracks/0/keys = {
 "values": [Vector2(599, 36), Vector2(599, -111)]
 }
 
+[sub_resource type="Animation" id="Animation_rdoga"]
+resource_name = "move_3"
+length = 1.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.46667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(600, 36), Vector2(600, -130)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_axiwp"]
 _data = {
 "RESET": SubResource("Animation_17t85"),
 "move platform 4": SubResource("Animation_8mg66"),
 "move platform3": SubResource("Animation_kkf3f"),
-"move2": SubResource("Animation_4i2m7")
+"move2": SubResource("Animation_4i2m7"),
+"move_3": SubResource("Animation_rdoga")
 }
 
 [sub_resource type="Animation" id="Animation_u2fes"]
@@ -668,26 +698,29 @@ stream = ExtResource("7_sbixi")
 volume_db = -31.696
 pitch_scale = 0.73
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+[node name="Score" type="CanvasLayer" parent="."]
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 follow_viewport_scale = 0.001
 
-[node name="ScoreLabel" type="Label" parent="CanvasLayer2"]
-offset_left = -2.0
-offset_top = 9.0
-offset_right = 26.0
-offset_bottom = 25.0
+[node name="ScoreLabel" type="Label" parent="Score"]
+anchors_preset = -1
+anchor_right = 0.0112847
+offset_left = 1.0
+offset_top = 32.0
+offset_right = 29.0
+offset_bottom = 48.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("8_vouee")
-theme_override_font_sizes/font_size = 8
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer2/ScoreLabel"]
-position = Vector2(9, 7.5)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Score/ScoreLabel"]
+position = Vector2(8.375, 7.3125)
+scale = Vector2(1.57812, 1.58594)
 sprite_frames = SubResource("SpriteFrames_qqmhi")
 autoplay = "default"
 
@@ -805,7 +838,7 @@ position = Vector2(600, 36)
 libraries = {
 "": SubResource("AnimationLibrary_axiwp")
 }
-autoplay = "move platform3"
+autoplay = "move_3"
 
 [node name="Platform2" parent="Platforms" instance=ExtResource("3_1sk3t")]
 position = Vector2(394, 7)
