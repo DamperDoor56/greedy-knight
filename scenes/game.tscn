@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=79 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -996,10 +996,10 @@ layer = 12
 process_priority = 10
 auto_translate_mode = 2
 clip_contents = true
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 133.0
-offset_bottom = 17.0
+offset_left = 2.0
+offset_top = 32.0
+offset_right = 291.0
+offset_bottom = 57.0
 size_flags_horizontal = 3
 size_flags_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_ywxgd")
@@ -1008,6 +1008,18 @@ max_value = 3.0
 value = 3.0
 show_percentage = false
 script = ExtResource("5_g1hia")
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 4.0
+offset_top = 7.0
+offset_right = 95.0
+offset_bottom = 30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("23_kfgnd")
+theme_override_font_sizes/font_size = 24
+text = "Life"
 
 [connection signal="body_entered" from="Enemies/SmartEnemy2/Hurtzone" to="Player" method="_on_smart_hurtzone_body_entered"]
 [connection signal="body_entered" from="Enemies/SmartEnemy/Hurtzone" to="Player" method="_on_smart_hurtzone_body_entered"]
