@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=89 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_6r17a"]
 [ext_resource type="PackedScene" uid="uid://rmip46xcuc1r" path="res://scenes/player.tscn" id="1_frvba"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://chr38f2mgekb8" path="res://assets/sprites/white_knight.png" id="17_r5c6t"]
 [ext_resource type="Script" path="res://scenes/knight_range.gd" id="18_1ff07"]
 [ext_resource type="FontFile" uid="uid://ucfh4ku50dkh" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="23_kfgnd"]
+[ext_resource type="Texture2D" uid="uid://d3kist65nfidf" path="res://assets/sprites/portal.png" id="24_t4dd4"]
 
 [sub_resource type="GDScript" id="GDScript_ffmhe"]
 script/source = "extends Node2D
@@ -661,6 +662,66 @@ bg_color = Color(0, 0, 0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf28h"]
 bg_color = Color(1, 0.0285192, 0.0919173, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y4jh"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x34rj"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1d78"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skfj4"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k1p8j"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6u7k"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bo7j1"]
+atlas = ExtResource("24_t4dd4")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kgoss"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y4jh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x34rj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1d78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skfj4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k1p8j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6u7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bo7j1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p0np1"]
+height = 22.0
+
 [node name="Game" type="Node2D"]
 script = SubResource("GDScript_ffmhe")
 
@@ -1052,6 +1113,21 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("23_kfgnd")
 theme_override_font_sizes/font_size = 24
 text = "Life"
+
+[node name="Level" type="Area2D" parent="."]
+position = Vector2(-192, -492)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Level"]
+position = Vector2(-1, 2)
+rotation = -3.14159
+sprite_frames = SubResource("SpriteFrames_kgoss")
+animation = &"idle"
+frame_progress = 0.558327
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level"]
+position = Vector2(1, 1)
+rotation = -3.14159
+shape = SubResource("CapsuleShape2D_p0np1")
 
 [connection signal="body_entered" from="Enemies/SmartEnemy2/Hurtzone" to="Player" method="_on_smart_hurtzone_body_entered"]
 [connection signal="body_entered" from="Enemies/SmartEnemy/Hurtzone" to="Player" method="_on_smart_hurtzone_body_entered"]
