@@ -13,16 +13,11 @@ z_index = 10
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -23.0
-offset_top = -15.0
-offset_right = 19.0
-offset_bottom = 8.0
+offset_left = -7.0
+offset_top = -11.0
+offset_right = 7.0
+offset_bottom = 12.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("1_unw4y")
 theme_override_font_sizes/font_size = 8
-text = "!"
 vertical_alignment = 1
-
-[node name="Interaction Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0

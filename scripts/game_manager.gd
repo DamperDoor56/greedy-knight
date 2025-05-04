@@ -1,7 +1,7 @@
 extends Node
 
 var score = 0
-@onready var score_label: Label = $"../CanvasLayer2/ScoreLabel"
+@onready var score_label: Label = $"../Score/ScoreLabel"
 
 func add_coins():
 	score += 1

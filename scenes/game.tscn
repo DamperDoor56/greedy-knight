@@ -970,6 +970,22 @@ script = ExtResource("17_i2fed")
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_br7b3")
 
+[node name="InteractionLabel" type="Label" parent="Info/Sign/InteractionAreaSign"]
+light_mask = 3
+visibility_layer = 3
+z_index = 10
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = -7.0
+offset_top = -22.0
+offset_right = 7.0
+offset_bottom = 1.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("23_kfgnd")
+theme_override_font_sizes/font_size = 8
+text = " !"
+vertical_alignment = 1
+
 [node name="OrangeKnight" type="Node2D" parent="Info"]
 position = Vector2(-50, 28)
 script = ExtResource("17_20uo3")
@@ -988,6 +1004,22 @@ script = ExtResource("18_1ff07")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Info/OrangeKnight/KnightRange"]
 position = Vector2(-1, -12)
 shape = SubResource("CircleShape2D_bissc")
+
+[node name="InteractionLabel" type="Label" parent="Info/OrangeKnight/KnightRange"]
+light_mask = 3
+visibility_layer = 3
+z_index = 10
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = -7.0
+offset_top = -32.0
+offset_right = 7.0
+offset_bottom = -9.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("23_kfgnd")
+theme_override_font_sizes/font_size = 8
+text = " !"
+vertical_alignment = 1
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 12
