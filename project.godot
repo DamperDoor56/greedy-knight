@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Knight"
-run/main_scene="res://scenes/main_menu.tscn"
+run/main_scene="res://levels/level1/main_menu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Music="*res://scenes/music.tscn"
-InteractionManager="*res://scenes/interaction_manager.tscn"
+Music="*res://levels/level1/music.tscn"
+InteractionManager="*res://levels/level1/interaction_manager.tscn"
 DialogManager="*res://interaction/dialog/DialogManager.gd"
 
 [input]
