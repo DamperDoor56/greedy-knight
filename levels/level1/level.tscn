@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://bdjvrwf4uadbs"]
+[gd_scene load_steps=85 format=3 uid="uid://bdjvrwf4uadbs"]
 
 [ext_resource type="Script" path="res://scripts/game_manager.gd" id="1_k4te8"]
 [ext_resource type="Texture2D" uid="uid://jc1347xb4yuw" path="res://assets/sprites/world_tileset.png" id="2_tqq4c"]
@@ -24,7 +24,7 @@
 [ext_resource type="Script" path="res://levels/level1/knight_range.gd" id="22_vmqjo"]
 [ext_resource type="Script" path="res://levels/level1/health_bar.gd" id="23_dgbl0"]
 [ext_resource type="Script" path="res://levels/level1/level_manager.gd" id="24_8ht1y"]
-[ext_resource type="Texture2D" uid="uid://d3kist65nfidf" path="res://assets/sprites/portal.png" id="25_tsxb6"]
+[ext_resource type="Texture2D" uid="uid://2favuquf5mgj" path="res://assets/sprites/portal.png" id="25_tsxb6"]
 
 [sub_resource type="GDScript" id="GDScript_ffmhe"]
 script/source = "extends Node2D
