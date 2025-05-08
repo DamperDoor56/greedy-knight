@@ -59,9 +59,15 @@ func _physics_process(delta):
 	# Flip the Sprite:
 	if direction > 0:
 		player_sprite.flip_h = false
+		player_sprite.rotation_degrees = lerp(player_sprite.rotation_degrees, 10.0, 0.2)
+
 	elif direction < 0:
 		player_sprite.flip_h = true
-	
+		player_sprite.rotation_degrees = lerp(player_sprite.rotation_degrees, -10.0, 0.2)
+		
+	elif is_on_floor():
+		player_sprite.rotation_degrees = lerp(player_sprite.rotation_degrees, 0.0, 0.2)
+		
 	# Play animations
 	if is_on_floor() && is_taking_damage_from_smart == false:
 		if direction == 0:
