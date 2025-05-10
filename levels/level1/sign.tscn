@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://5y481fhtllt"]
 
-[ext_resource type="Script" path="res://scenes/sign.gd" id="1_7uypa"]
+[ext_resource type="Script" path="res://levels/level1/sign.gd" id="1_7uypa"]
 [ext_resource type="Texture2D" uid="uid://hlsyt03fifw5" path="res://assets/sprites/sign.png" id="1_egrkf"]
 [ext_resource type="Script" path="res://scripts/interaction_area.gd" id="3_xrd8s"]
 

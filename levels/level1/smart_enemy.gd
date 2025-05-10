@@ -1,4 +1,4 @@
-extends "res://scenes/slime_2.gd"
+extends "res://levels/level1/slime_2.gd"
 
 @onready var slime_sprite_smart: AnimatedSprite2D = $AnimatedSprite2D
 @onready var ray_cast_right_smart: RayCast2D = $RayCastRight
